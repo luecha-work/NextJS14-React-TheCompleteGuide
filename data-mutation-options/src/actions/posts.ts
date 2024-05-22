@@ -46,12 +46,11 @@ export async function createPost(
     content,
     userId: 1,
   });
-
+  revalidatePath("/", "layout");
   redirect("/feed");
 }
 
 export async function togglePostLikeStatus(postId: number) {
   await updatePostLikeStatus(postId, 2);
-
   revalidatePath("/", "layout");
 }
