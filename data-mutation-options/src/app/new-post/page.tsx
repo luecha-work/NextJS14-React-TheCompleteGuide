@@ -9,7 +9,7 @@ export default function NewPostPage() {
   ): Promise<{ errors: string[] }> {
     "use server";
     const title = formData.get("title") as string;
-    const image = formData.get("image");
+    const image = formData.get("image") as File;
     const content = formData.get("content") as string;
 
     let errors: string[] = [];
@@ -22,7 +22,7 @@ export default function NewPostPage() {
       errors.push("Content is required");
     }
 
-    if (!image || image?.size === 0) {
+    if (!image || !(image instanceof File) || image.size === 0) {
       errors.push("Image is required");
     }
 
@@ -31,13 +31,14 @@ export default function NewPostPage() {
     }
 
     storePost({
-      imageUrl: "",
+      imageUrl: "", // Process and store image as needed
       title,
       content,
       userId: 1,
     });
 
     redirect("/feed");
+    return { errors: [] };
   }
 
   return <PostForm action={createPost} />;
