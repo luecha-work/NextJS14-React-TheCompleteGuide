@@ -12,7 +12,7 @@ export default async function MessagesLayout({
   // });
   // const messages = await response.json();
 
-  const messages: Message[] = getMessages();
+  const messages: Message[] = await getMessages();
   const totalMessages = messages.length;
 
   return (

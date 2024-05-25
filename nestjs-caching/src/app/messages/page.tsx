@@ -15,7 +15,7 @@ export default async function MessagesPage() {
   // });
   // const messages = await response.json();
 
-  const messages: Message[] = getMessages();
+  const messages: Message[] = await getMessages();
 
   if (!messages || messages.length === 0) {
     return <p>No messages found</p>;
