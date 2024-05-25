@@ -24,5 +24,6 @@ export const getMessages = nextCache(
     const messages = db.prepare("SELECT * FROM messages").all() as Message[];
     return messages;
   }),
-  ["messages"]
+  ["messages"],
+  { tags: ["msg"] }
 );
