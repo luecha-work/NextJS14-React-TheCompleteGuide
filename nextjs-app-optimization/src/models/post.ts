@@ -1,10 +1,13 @@
-interface Post {
+interface Posts {
   id: number;
-  image_url: string;
+  image: string;
   title: string;
   content: string;
-  created_at: string;
-  user_id: number;
+  createdAt: string;
+  userFirstName: string;
+  userLastName: string;
+  likes: number;
+  isLiked: boolean;
 }
 
 interface PostData {
