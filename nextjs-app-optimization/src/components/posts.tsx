@@ -19,7 +19,7 @@ function Post({ post, action }: PostProps) {
   return (
     <article className="post">
       <div className="post-image">
-        <Image src={post.image} alt={post.title} />
+        <Image src={post.image} width={200} height={200} alt={post.title} />
       </div>
       <div className="post-content">
         <header>
