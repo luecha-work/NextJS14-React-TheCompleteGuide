@@ -2,7 +2,7 @@
 
 import { togglePostLikeStatus } from "@/actions/posts";
 import { formatDate } from "@/lib/format";
-import Image from "next/image";
+import Image, { ImageLoaderProps } from "next/image";
 import { useOptimistic } from "react";
 import LikeButton from "./like-icon";
 
@@ -15,11 +15,29 @@ interface PostsProps {
   readonly posts: Posts[];
 }
 
+function imageLoader(config: ImageLoaderProps) {
+  const urlString = config.src.split("upload/"[0]);
+  const urlEnd = config.src.split("upload/"[1]);
+  const transformation = `w_200,q_${config.quality}`;
+
+  console.log(`${urlString}upload/${transformation}/${urlEnd}`);
+
+  return `${urlString}upload/${transformation}/${urlEnd}`;
+}
+
 function Post({ post, action }: PostProps) {
   return (
     <article className="post">
       <div className="post-image">
-        <Image src={post.image} width={200} height={200} alt={post.title} />
+        <Image
+          loader={imageLoader}
+          src={post.image}
+          width={200}
+          height={200}
+          // fill
+          alt={post.title}
+          quality={50}
+        />
       </div>
       <div className="post-content">
         <header>
