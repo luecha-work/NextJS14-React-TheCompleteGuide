@@ -1,6 +1,12 @@
 import Posts from "@/components/posts";
 import { getPosts } from "@/lib/posts";
+import { Metadata } from "next";
 import { Suspense } from "react";
+
+export const metadata: Metadata = {
+  title: "Next App Optimization",
+  description: "My Workshop For Next App Optimization",
+};
 
 async function LatestPosts() {
   const latestPosts = await getPosts(2);

@@ -16,11 +16,9 @@ interface PostsProps {
 }
 
 function imageLoader(config: ImageLoaderProps) {
-  const urlString = config.src.split("upload/"[0]);
-  const urlEnd = config.src.split("upload/"[1]);
+  const urlString = config.src.split("upload/")[0];
+  const urlEnd = config.src.split("upload/")[1];
   const transformation = `w_200,q_${config.quality}`;
-
-  console.log(`${urlString}upload/${transformation}/${urlEnd}`);
 
   return `${urlString}upload/${transformation}/${urlEnd}`;
 }
@@ -34,6 +32,7 @@ function Post({ post, action }: PostProps) {
           src={post.image}
           width={200}
           height={200}
+          // sizes="100"
           // fill
           alt={post.title}
           quality={50}
