@@ -14,7 +14,7 @@ export async function signup(
 
   let errors: SignupErrors = {};
 
-  if (!email.includes("@")) {
+  if (!email.includes("@") || !email.includes(".")) {
     errors.email = "Please enter a valid email address.";
   }
 
