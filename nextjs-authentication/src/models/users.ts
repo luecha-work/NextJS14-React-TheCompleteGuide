@@ -1,4 +1,4 @@
-interface Training {
+interface User {
   id: number;
   email: string;
   password: string;
