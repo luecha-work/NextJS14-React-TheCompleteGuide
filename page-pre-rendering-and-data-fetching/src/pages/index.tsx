@@ -1,11 +1,43 @@
-function HomePage() {
+import React from "react";
+
+interface Product {
+  id: number;
+  name: string;
+}
+
+interface HomePageProps {
+  products: Product[];
+}
+
+const HomePage: React.FC<HomePageProps> = ({ products }) => {
   return (
     <ul>
-      <li>Product 1</li>
-      <li>Product 2</li>
-      <li>Product 3</li>
+      {products.map((product) => (
+        <li key={product.id}>{product.name}</li>
+      ))}
     </ul>
   );
+};
+
+export async function getServerSideProps() {
+  return {
+    props: {
+      products: [
+        {
+          id: 1,
+          name: "Product 1",
+        },
+        {
+          id: 2,
+          name: "Product 2",
+        },
+        {
+          id: 3,
+          name: "Product 3",
+        },
+      ],
+    },
+  };
 }
 
 export default HomePage;
