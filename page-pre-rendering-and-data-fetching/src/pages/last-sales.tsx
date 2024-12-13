@@ -9,6 +9,7 @@ interface Sale {
 
 function LastSalesPage() {
   const [sales, setSales] = useState<Sale[]>([]);
+  //TODO: Replace the useEffect with useSWR
   const { data, error } = useSWR(
     "https://nextjs-course-f1fec-default-rtdb.firebaseio.com/sales.json",
     (url) => fetch(url).then((res) => res.json())
