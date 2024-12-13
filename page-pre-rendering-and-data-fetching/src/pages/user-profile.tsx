@@ -1,14 +1,17 @@
-import { NextPage } from "next";
-
 interface UserProfilePageProps {
   username: string;
 }
 
-const UserProfilePage: NextPage<UserProfilePageProps> = ({ username }) => {
-  return <h1>{username}</h1>;
-};
+function UserProfilePage(props: UserProfilePageProps) {
+  return <h1>{props.username}</h1>;
+}
 
 export async function getServerSideProps() {
+  //   const { params, req, res } = context;
+
+  //   console.log(req);
+  //   console.log(res);
+
   return {
     props: {
       username: "Max",

@@ -1,5 +1,5 @@
 import fs from "fs/promises";
-import { GetStaticPropsContext, NextPage } from "next";
+import { GetStaticPropsContext } from "next";
 import path from "path";
 import { Fragment } from "react";
 
@@ -11,9 +11,7 @@ interface ProductDetailPageProps {
   };
 }
 
-const ProductDetailPage: NextPage<ProductDetailPageProps> = ({
-  loadedProduct,
-}) => {
+function ProductDetailPage({ loadedProduct }: ProductDetailPageProps) {
   if (!loadedProduct) {
     return <p>Loading...</p>;
   }
@@ -24,7 +22,7 @@ const ProductDetailPage: NextPage<ProductDetailPageProps> = ({
       <p>{loadedProduct.description}</p>
     </Fragment>
   );
-};
+}
 
 async function getData() {
   const filePath = path.join(process.cwd(), "src", "data/dummy-backend.json");
