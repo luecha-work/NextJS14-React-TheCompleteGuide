@@ -73,6 +73,7 @@ function LastSalesPage(props: LastSalesPageProps) {
   );
 }
 
+//TODO: Replace getServerSideProps with getStaticProps
 export async function getStaticProps() {
   const response = await fetch(
     "https://nextjs-course-f1fec-default-rtdb.firebaseio.com/sales.json"
