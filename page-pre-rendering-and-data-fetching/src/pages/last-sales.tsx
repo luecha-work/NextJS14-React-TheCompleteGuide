@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useSWR from "swr";
 
 interface Sale {
   id: string;
@@ -14,30 +15,30 @@ function LastSalesPage(props: LastSalesPageProps) {
   const [sales, setSales] = useState<Sale[]>(props.sales);
 
   //TODO: Replace the useEffect with useSWR
-  //   const { data, error } = useSWR(
-  //     "https://nextjs-course-f1fec-default-rtdb.firebaseio.com/sales.json",
-  //     (url) => fetch(url).then((res) => res.json())
-  //   );
+  const { data, error } = useSWR(
+    "https://nextjs-course-f1fec-default-rtdb.firebaseio.com/sales.json",
+    (url) => fetch(url).then((res) => res.json())
+  );
 
-  //   useEffect(() => {
-  //     if (data) {
-  //       const transformedSales: Sale[] = [];
+  useEffect(() => {
+    if (data) {
+      const transformedSales: Sale[] = [];
 
-  //       for (const key in data) {
-  //         transformedSales.push({
-  //           id: key,
-  //           username: data[key].username,
-  //           volume: data[key].volume,
-  //         });
-  //       }
+      for (const key in data) {
+        transformedSales.push({
+          id: key,
+          username: data[key].username,
+          volume: data[key].volume,
+        });
+      }
 
-  //       setSales(transformedSales);
-  //     }
-  //   }, [data]);
+      setSales(transformedSales);
+    }
+  }, [data]);
 
-  //   if (error) {
-  //     return <p>Failed to load.</p>;
-  //   }
+  if (error) {
+    return <p>Failed to load.</p>;
+  }
 
   //TODO: Replace the useEffect with Next hook
   //   useEffect(() => {
@@ -58,7 +59,7 @@ function LastSalesPage(props: LastSalesPageProps) {
   //       });
   //   }, []);
 
-  if (!sales) {
+  if (!data && !sales) {
     return <p>Loading...</p>;
   }
 
