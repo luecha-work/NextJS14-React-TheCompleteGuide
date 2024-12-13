@@ -29,6 +29,7 @@ export async function getStaticProps() {
   const jsonData = await fs.readFile(filePath, "utf-8");
   const parsedData = JSON.parse(jsonData);
 
+  //TODO: redirect and destination key
   if (!parsedData) {
     return {
       redirect: {
@@ -36,12 +37,15 @@ export async function getStaticProps() {
       },
     };
   }
+
+  //TODO: notFound key
   if (parsedData.products.length === 0) {
     return {
       notFound: true,
     };
   }
 
+  //TODO: revalidate key
   return {
     props: {
       products: parsedData.products,

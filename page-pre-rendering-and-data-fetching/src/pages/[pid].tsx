@@ -1,5 +1,5 @@
 import fs from "fs/promises";
-import { GetStaticPropsContext } from "next";
+import { GetStaticPropsContext, NextPage } from "next";
 import path from "path";
 import { Fragment } from "react";
 
@@ -11,7 +11,9 @@ interface ProductDetailPageProps {
   };
 }
 
-function ProductDetailPage({ loadedProduct }: ProductDetailPageProps) {
+const ProductDetailPage: NextPage<ProductDetailPageProps> = ({
+  loadedProduct,
+}) => {
   if (!loadedProduct) {
     return <p>Loading...</p>;
   }
@@ -22,7 +24,7 @@ function ProductDetailPage({ loadedProduct }: ProductDetailPageProps) {
       <p>{loadedProduct.description}</p>
     </Fragment>
   );
-}
+};
 
 async function getData() {
   const filePath = path.join(process.cwd(), "src", "data/dummy-backend.json");
@@ -43,6 +45,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     (product: { id: string }) => product.id === productId
   );
 
+  //TODO: fallback key
   if (!product) {
     return {
       notFound: true,
@@ -62,6 +65,7 @@ export async function getStaticPaths() {
   const ids = parsedData.products.map((product: { id: string }) => product.id);
   const pathWithParams = ids.map((id: string) => ({ params: { pid: id } }));
 
+  //TODO: fallback key
   return {
     paths: pathWithParams,
     fallback: true,
