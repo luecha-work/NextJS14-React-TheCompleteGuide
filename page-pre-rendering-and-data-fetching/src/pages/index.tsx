@@ -1,5 +1,6 @@
 import { Product } from "@/models/product";
 import fs from "fs/promises";
+import Link from "next/link";
 import path from "path";
 import React from "react";
 
@@ -15,7 +16,9 @@ const HomePage: React.FC<HomePageProps> = ({ products }) => {
   return (
     <ul>
       {products.map((product) => (
-        <li key={product.id}>{product.title}</li>
+        <li key={product.id}>
+          <Link href={`/${product.id}`}>{product.title}</Link>
+        </li>
       ))}
     </ul>
   );
@@ -23,24 +26,28 @@ const HomePage: React.FC<HomePageProps> = ({ products }) => {
 
 export async function getStaticProps() {
   const filePath = path.join(process.cwd(), "src", "data/dummy-backend.json");
+  const jsonData = await fs.readFile(filePath, "utf-8");
+  const parsedData = JSON.parse(jsonData);
 
-  try {
-    const jsonData = await fs.readFile(filePath, "utf-8");
-    const parsedData = JSON.parse(jsonData);
-
+  if (!parsedData) {
     return {
-      props: {
-        products: parsedData.products,
-      },
-    };
-  } catch (error) {
-    console.error("Error reading data file:", error);
-    return {
-      props: {
-        products: [],
+      redirect: {
+        destination: "/no-data",
       },
     };
   }
+  if (parsedData.products.length === 0) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: {
+      products: parsedData.products,
+    },
+    revalidate: 10,
+  };
 }
 
 export default HomePage;
