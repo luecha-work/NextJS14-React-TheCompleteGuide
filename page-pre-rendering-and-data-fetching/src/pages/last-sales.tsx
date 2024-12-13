@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import useSWR from "swr";
 
 interface Sale {
   id: string;
@@ -8,37 +9,33 @@ interface Sale {
 
 function LastSalesPage() {
   const [sales, setSales] = useState<Sale[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const { data, error } = useSWR(
+    "https://nextjs-course-f1fec-default-rtdb.firebaseio.com/sales.json",
+    (url) => fetch(url).then((res) => res.json())
+  );
 
   useEffect(() => {
-    setIsLoading(true);
+    if (data) {
+      const transformedSales: Sale[] = [];
 
-    fetch("https://nextjs-course-f1fec-default-rtdb.firebaseio.com/sales.json")
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(`data: ${JSON.stringify(data)}`);
+      for (const key in data) {
+        transformedSales.push({
+          id: key,
+          username: data[key].username,
+          volume: data[key].volume,
+        });
+      }
 
-        const transformedSales: Sale[] = [];
+      setSales(transformedSales);
+    }
+  }, [data]);
 
-        for (const key in data) {
-          transformedSales.push({
-            id: key,
-            username: data[key].username,
-            volume: data[key].volume,
-          });
-        }
-
-        setSales(transformedSales);
-        setIsLoading(false);
-      });
-  }, []);
-
-  if (isLoading) {
-    return <p>Loading...</p>;
+  if (error) {
+    return <p>Failed to load.</p>;
   }
 
-  if (sales.length === 0) {
-    return <p>No sales found</p>;
+  if (!data) {
+    return <p>Loading...</p>;
   }
 
   return (
