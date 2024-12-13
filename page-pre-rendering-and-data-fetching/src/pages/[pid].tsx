@@ -33,15 +33,22 @@ export const getStaticProps: GetStaticProps = async (context) => {
     (product: { id: string }) => product.id === productId
   );
 
-  if (!product) {
-    return { notFound: true };
-  }
-
   return {
     props: {
       loadedProduct: product,
     },
   };
 };
+
+export async function getStaticPaths() {
+  return {
+    paths: [
+      { params: { pid: "p1" } },
+      { params: { pid: "p2" } },
+      { params: { pid: "p3" } },
+    ],
+    fallback: false,
+  };
+}
 
 export default ProductDetailPage;
