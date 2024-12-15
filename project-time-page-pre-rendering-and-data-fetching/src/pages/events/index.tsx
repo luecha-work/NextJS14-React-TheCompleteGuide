@@ -24,6 +24,9 @@ function AllEventsPage(props: AllEventsPageProps) {
   return (
     <Fragment>
       <Head>
+        <title>All my events</title>
+      </Head>
+      <Head>
         <title>All Events</title>
         <meta
           name="description"

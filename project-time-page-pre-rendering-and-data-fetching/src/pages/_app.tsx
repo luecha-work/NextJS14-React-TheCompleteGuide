@@ -7,11 +7,8 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Layout>
       <Head>
-        {/* <title>Next Events</title>
-        <meta
-          name="description"
-          content="Find a lot of great events that allow you to evolve..."
-        /> */}
+        <title>Next Events</title>
+        <meta name="description" content="NextJS Events" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
       <Component {...pageProps} />
