@@ -22,3 +22,8 @@ export async function getFeaturedEvents(): Promise<Event[]> {
   const allEvents = await getAllEvents();
   return allEvents.filter((event) => event.isFeatured);
 }
+
+export async function getEventById(id: string): Promise<Event | null> {
+  const allEvents = await getAllEvents();
+  return allEvents.find((event) => event.id === id) || null;
+}
