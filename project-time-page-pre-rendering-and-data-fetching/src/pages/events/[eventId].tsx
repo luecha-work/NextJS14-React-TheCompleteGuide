@@ -1,10 +1,10 @@
-import { Fragment } from "react";
 import EventContent from "@/components/event-detail/event-content";
 import EventLogistics from "@/components/event-detail/event-logistics";
 import EventSummary from "@/components/event-detail/event-summary";
 import { getAllEvents, getEventById } from "@/helpers/auth-utail";
 import { Event } from "@/models/event";
 import { GetStaticPropsContext } from "next";
+import { Fragment } from "react";
 
 interface EventDetailPageProps {
   selectedEvent: Event;
@@ -12,6 +12,14 @@ interface EventDetailPageProps {
 
 function EventDetailPage(props: EventDetailPageProps) {
   const event = props.selectedEvent;
+
+  if (!event) {
+    return (
+      <div className="center">
+        <p>Loading...</p>
+      </div>
+    );
+  }
 
   return (
     <Fragment>
@@ -61,7 +69,7 @@ export async function getStaticPaths() {
 
   return {
     paths,
-    fallback: false,
+    fallback: "blocking",
   };
 }
 

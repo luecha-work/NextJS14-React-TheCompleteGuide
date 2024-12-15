@@ -1,4 +1,5 @@
 import EventList from "@/components/events/event-list";
+import Layout from "@/components/layout/layout";
 import { getFeaturedEvents } from "@/helpers/auth-utail";
 import { Event } from "@/models/event";
 
@@ -7,10 +8,16 @@ interface HomePageProps {
 }
 
 function HomePage(props: HomePageProps) {
+  // return (
+  //   <div>
+  //     <EventList items={props.event} />
+  //   </div>
+  // );
+
   return (
-    <div>
+    <Layout>
       <EventList items={props.event} />
-    </div>
+    </Layout>
   );
 }
 
@@ -21,7 +28,7 @@ export async function getStaticProps() {
     props: {
       event: featuredEvents,
     },
-    revalidate: 10, // Revalidate every 30 minutes
+    revalidate: 10,
   };
 }
 
