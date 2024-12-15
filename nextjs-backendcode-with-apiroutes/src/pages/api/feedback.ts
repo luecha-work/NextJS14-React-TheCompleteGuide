@@ -2,11 +2,11 @@ import fs from "fs";
 import { NextApiRequest, NextApiResponse } from "next";
 import path from "path";
 
-function buildFeedbackPath() {
+export function buildFeedbackPath() {
   return path.join(process.cwd(), "src", "data/feedback.json");
 }
 
-function extractFeedback(filePath: string) {
+export function extractFeedback(filePath: string) {
   const fileData = fs.readFileSync(filePath);
   return JSON.parse(fileData.toString());
 }
