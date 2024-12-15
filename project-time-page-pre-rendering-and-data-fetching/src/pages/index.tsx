@@ -1,6 +1,7 @@
 import EventList from "@/components/events/event-list";
 import { getFeaturedEvents } from "@/helpers/auth-utail";
 import { Event } from "@/models/event";
+import Head from "next/head";
 
 interface HomePageProps {
   event: Event[];
@@ -9,6 +10,13 @@ interface HomePageProps {
 function HomePage(props: HomePageProps) {
   return (
     <div>
+      <Head>
+        <title>NextJS Events</title>
+        <meta
+          name="description"
+          content="Find a lot of great events that allow you to evolve..."
+        />
+      </Head>
       <EventList items={props.event} />
     </div>
   );
