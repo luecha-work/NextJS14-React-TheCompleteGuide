@@ -1,14 +1,9 @@
+import { Event } from "@/models/event";
 import EventItem from "./event-item";
 import classes from "./event-list.module.css";
 
 interface EventListProps {
-  items: {
-    id: string;
-    title: string;
-    location: string;
-    date: string;
-    image: string;
-  }[];
+  items: Event[];
 }
 
 function EventList(props: EventListProps) {
