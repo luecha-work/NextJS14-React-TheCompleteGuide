@@ -1,5 +1,4 @@
 import EventList from "@/components/events/event-list";
-import Layout from "@/components/layout/layout";
 import { getFeaturedEvents } from "@/helpers/auth-utail";
 import { Event } from "@/models/event";
 
@@ -8,16 +7,10 @@ interface HomePageProps {
 }
 
 function HomePage(props: HomePageProps) {
-  // return (
-  //   <div>
-  //     <EventList items={props.event} />
-  //   </div>
-  // );
-
   return (
-    <Layout>
+    <div>
       <EventList items={props.event} />
-    </Layout>
+    </div>
   );
 }
 
