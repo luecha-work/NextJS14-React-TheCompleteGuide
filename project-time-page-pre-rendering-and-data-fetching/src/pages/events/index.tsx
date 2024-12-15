@@ -4,6 +4,7 @@ import EventList from "@/components/events/event-list";
 import EventsSearch from "@/components/events/events-search";
 import { getAllEvents } from "@/helpers/auth-utail";
 import { Event } from "@/models/event";
+import Head from "next/head";
 import { useRouter } from "next/router";
 
 interface AllEventsPageProps {
@@ -22,6 +23,13 @@ function AllEventsPage(props: AllEventsPageProps) {
 
   return (
     <Fragment>
+      <Head>
+        <title>All Events</title>
+        <meta
+          name="description"
+          content="Find a lot of great events that allow you to evolve..."
+        />
+      </Head>
       <EventsSearch onSearch={findEventsHandler} />
       <EventList items={events} />
     </Fragment>

@@ -4,6 +4,7 @@ import EventSummary from "@/components/event-detail/event-summary";
 import { getAllEvents, getEventById } from "@/helpers/auth-utail";
 import { Event } from "@/models/event";
 import { GetStaticPropsContext } from "next";
+import Head from "next/head";
 import { Fragment } from "react";
 
 interface EventDetailPageProps {
@@ -23,6 +24,10 @@ function EventDetailPage(props: EventDetailPageProps) {
 
   return (
     <Fragment>
+      <Head>
+        <title>{event.title}</title>
+        <meta name="description" content={event.description} />
+      </Head>
       <EventSummary title={event.title} />
       <EventLogistics
         date={event.date}
