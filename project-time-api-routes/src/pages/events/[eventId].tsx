@@ -1,12 +1,12 @@
+import { GetStaticPaths, GetStaticPropsContext } from "next";
 import Head from "next/head";
 import { Fragment } from "react";
 
-import { GetStaticPropsContext } from "next";
 import EventContent from "../../components/event-detail/event-content";
 import EventLogistics from "../../components/event-detail/event-logistics";
 import EventSummary from "../../components/event-detail/event-summary";
 import Comments from "../../components/input/comments";
-import { getEventById } from "../../helpers/api-util";
+import { getEventById, getFeaturedEvents } from "../../helpers/api-util";
 
 interface EventDetailPageProps {
   selectedEvent: {
@@ -71,5 +71,15 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     revalidate: 30,
   };
 }
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const events = await getFeaturedEvents();
+  const paths = events.map((event) => ({ params: { eventId: event.id } }));
+
+  return {
+    paths: paths,
+    fallback: "blocking",
+  };
+};
 
 export default EventDetailPage;
