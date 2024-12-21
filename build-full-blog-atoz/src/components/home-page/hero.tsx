@@ -4,6 +4,13 @@ import classes from "./hero.module.css";
 function Hero() {
   return (
     <section className={classes.hero}>
+      {/* <Head>
+        <title>Max&apos;s Blog</title>
+        <meta
+          name="description"
+          content="I blog about web development - especially frontend frameworks like React"
+        />
+      </Head> */}
       <div className={classes.image}>
         <Image
           src="/images/site/max.jfif"
