@@ -13,3 +13,14 @@ export interface PostContent {
   slug: string;
   content: string;
 }
+
+export interface PostData {
+  slug: string;
+  title: string;
+  date: string;
+  content: string;
+  image: string;
+  excerpt: string;
+  isFeatured: boolean;
+  [key: string]: unknown;
+}

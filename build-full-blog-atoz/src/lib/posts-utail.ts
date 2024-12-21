@@ -1,19 +1,9 @@
+import { PostData } from "@/type/post";
 import fs from "fs";
 import matter from "gray-matter";
 import path from "path";
 
 const postsDirectory = path.join(process.cwd(), "src/posts");
-
-interface PostData {
-  slug: string;
-  title: string;
-  date: string;
-  content: string;
-  image: string;
-  excerpt: string;
-  isFeatured: boolean;
-  [key: string]: unknown;
-}
 
 function getPostsFiles(fileName: string): PostData {
   const filePath = path.join(postsDirectory, fileName);
@@ -44,6 +34,8 @@ function getAllPosts(): PostData[] {
   const allPosts = postFiles.map((postFile) => {
     return getPostsFiles(postFile);
   });
+
+  console.log(allPosts);
 
   const sortedPosts = allPosts.sort((postA, postB) =>
     postA.date > postB.date ? -1 : 1
