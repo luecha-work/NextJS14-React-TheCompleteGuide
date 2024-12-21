@@ -5,3 +5,11 @@ export interface Post {
   date: string;
   slug: string;
 }
+
+export interface PostContent {
+  title: string;
+  image: string;
+  date: string;
+  slug: string;
+  content: string;
+}

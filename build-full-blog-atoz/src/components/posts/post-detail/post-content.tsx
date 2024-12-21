@@ -1,5 +1,25 @@
+import type { PostContent } from "@/type/post";
+import PostHeader from "./post-header";
+
+import classes from "./post-content.module.css";
+
+const DUMMY_POSTS: PostContent = {
+  title: "First Post",
+  image: "getting-started-nextjs.png",
+  date: "2023-01-01",
+  slug: "getting-started-with-nextjs1",
+  content: "# This is a first post",
+};
+
 function PostContent() {
-  return <div>Enter</div>;
+  const imagePath = `/Images/posts/${DUMMY_POSTS.slug}/${DUMMY_POSTS.image}`;
+
+  return (
+    <article className={classes.content}>
+      <PostHeader title={DUMMY_POSTS.title} image={imagePath} />
+      {DUMMY_POSTS.content}
+    </article>
+  );
 }
 
 export default PostContent;
