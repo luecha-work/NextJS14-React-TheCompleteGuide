@@ -9,8 +9,6 @@ interface PostsGridProps {
 function PostsGrid(props: PostsGridProps) {
   const { posts } = props;
 
-  console.log(`PostsGrid: ${JSON.stringify(posts)}`);
-
   if (!posts) {
     return null;
   }

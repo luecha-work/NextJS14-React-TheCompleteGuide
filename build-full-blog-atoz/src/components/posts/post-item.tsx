@@ -18,6 +18,8 @@ function PostItem({ post }: PostItemProps) {
 
   const imagePath = `/Images/posts/${slug}/${image}`;
 
+  console.log(`imagePath: ${imagePath}`);
+
   return (
     <li className={classes.post}>
       <Link href={`/posts/${slug}`}>

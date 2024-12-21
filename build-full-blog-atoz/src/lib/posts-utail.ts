@@ -6,19 +6,19 @@ import path from "path";
 const postsDirectory = path.join(process.cwd(), "src/posts");
 
 function getPostsFiles() {
-  return fs.readdirSync(postsDirectory);
+  return fs.readdirSync(postsDirectory).filter((file) => file.endsWith(".md"));
 }
 
 function getPostsData(postIdentifier: string): PostData {
   const postSlug = postIdentifier.replace(/\.md$/, "");
-
   const filePath = path.join(postsDirectory, `${postSlug}.md`);
 
+  if (!fs.existsSync(filePath)) {
+    throw new Error(`File not found: ${filePath}`);
+  }
+
   const fileContent = fs.readFileSync(filePath, "utf-8");
-
   const { data, content } = matter(fileContent);
-
-  // const postSlug = fileName.replace(/\.md$/, "");
 
   const postData: PostData = {
     slug: postSlug,
