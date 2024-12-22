@@ -1,4 +1,5 @@
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/router";
 import { useRef, useState } from "react";
 import classes from "./auth-form.module.css";
 
@@ -25,6 +26,7 @@ function AuthForm() {
   const passwordInputRef = useRef<HTMLInputElement>(null);
 
   const [isLogin, setIsLogin] = useState(true);
+  const router = useRouter();
 
   function switchAuthModeHandler() {
     setIsLogin((prevState) => !prevState);
@@ -41,21 +43,14 @@ function AuthForm() {
       : "";
 
     if (isLogin) {
-      try {
-        const result = await signIn("credentials", {
-          redirect: false,
-          email: enteredEmail,
-          password: enteredPassword,
-        });
+      const result = await signIn("credentials", {
+        redirect: false,
+        email: enteredEmail,
+        password: enteredPassword,
+      });
 
-        if (result?.error) {
-          throw new Error(result.error);
-        }
-
-        // console.log(result);
-      } catch (error) {
-        console.error("Login failed:", error);
-        // Handle error (e.g., show error message to user)
+      if (!result?.error) {
+        router.replace("/profile");
       }
     } else {
       try {
