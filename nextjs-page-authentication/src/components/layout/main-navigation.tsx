@@ -24,11 +24,7 @@ function MainNavigation() {
           )}
           {session && (
             <li>
-              {isLoading ? (
-                <span>Loading...</span>
-              ) : (
-                <Link href="/profile">Profile</Link>
-              )}
+              <Link href="/profile">Profile</Link>
             </li>
           )}
 
