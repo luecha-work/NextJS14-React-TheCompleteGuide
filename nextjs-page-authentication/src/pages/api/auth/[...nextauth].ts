@@ -11,7 +11,7 @@ export default NextAuth({
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         if (!credentials) {
           throw new Error("No credentials provided");
         }
@@ -56,5 +56,5 @@ export default NextAuth({
     strategy: "jwt",
     maxAge: 24 * 60 * 60,
   },
-  secret: process.env.NEXTAUTH_SECRET,
+  //   secret: process.env.NEXT_PUBLIC_SECRET,
 });
