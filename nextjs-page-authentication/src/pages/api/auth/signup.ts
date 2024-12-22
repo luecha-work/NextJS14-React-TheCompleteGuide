@@ -25,12 +25,14 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   const db = client.db("local");
 
   try {
-    const hashedPassword = hashPassword(password);
+    const hashedPassword = await hashPassword(password);
 
     await db.collection("users").insertOne({ email, hashedPassword });
 
     return res.status(201).json({ message: "User created successfully" });
   } catch (error) {
+    console.log(`Error creating user: ${error}`);
+
     return res.status(500).json({ message: "Could not create user" });
   } finally {
     await client.close();
