@@ -23,3 +23,5 @@ function handler(req: NextApiRequest, res: NextApiResponse) {
     res.status(201).json({ message: "Successfully stored message!" });
   }
 }
+
+export default handler;
