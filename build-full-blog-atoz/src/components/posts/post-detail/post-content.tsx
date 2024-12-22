@@ -1,11 +1,19 @@
 import type { PostContent, PostData } from "@/type/post";
 import Image from "next/image";
-import ReactMarkdown from "react-markdown";
 import PostHeader from "./post-header";
 
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import ReactMarkdown from "react-markdown";
+import { PrismLight as SyntaxHighlighter } from "react-syntax-highlighter";
+import {
+  default as css,
+  default as js,
+} from "react-syntax-highlighter/dist/cjs/languages/prism/javascript";
+import atomDark from "react-syntax-highlighter/dist/cjs/styles/prism/atom-dark";
+
 import classes from "./post-content.module.css";
+
+SyntaxHighlighter.registerLanguage("js", js);
+SyntaxHighlighter.registerLanguage("css", css);
 
 interface PostContentProps {
   post: PostData;
@@ -51,23 +59,12 @@ function PostContent(props: PostContentProps) {
 
     //   return <p>{paragraph.children}</p>;
     // },
-    ode(code: { className?: string; children?: React.ReactNode }) {
-      // Extract language from className (format: language-{name})
+    code(code: { className?: string; children?: React.ReactNode }) {
       const language = code.className?.replace("language-", "") || "text";
-
-      // Extract code content from children
-      const codeContent =
-        code.children instanceof Array
-          ? code.children.join("")
-          : String(code.children || "");
+      const codeContent = String(code.children);
 
       return (
-        <SyntaxHighlighter
-          style={atomDark}
-          language={language}
-          showLineNumbers
-          wrapLines
-        >
+        <SyntaxHighlighter style={atomDark} language={language} showLineNumbers>
           {codeContent}
         </SyntaxHighlighter>
       );
