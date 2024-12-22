@@ -33,7 +33,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       return res.status(422).json({ message: "User already exists" });
     }
 
-    await db.collection("users").insertOne({ email, hashedPassword });
+    await db.collection("users").insertOne({ email, password: hashedPassword });
 
     return res.status(201).json({ message: "User created successfully" });
   } catch (error) {
